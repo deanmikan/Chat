@@ -67,6 +67,12 @@ struct UIList<MessageContent: View, InputView: View>: UIViewRepresentable {
         tableView.keyboardDismissMode = keyboardDismissMode
         tableView.contentInsetAdjustmentBehavior = .never
 
+        // Table is rotated 180° for conversation mode, so swap scroll edge effects
+        if #available(iOS 26.0, *), type == .conversation {
+            tableView.topScrollEdgeEffectStyle = .none
+            tableView.bottomScrollEdgeEffectStyle = .soft
+        }
+
         NotificationCenter.default.addObserver(forName: .onScrollToBottom, object: nil, queue: nil) { _ in
             DispatchQueue.main.async {
                 if !context.coordinator.sections.isEmpty {
