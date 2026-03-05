@@ -67,14 +67,7 @@ struct UIList<MessageContent: View, InputView: View>: UIViewRepresentable {
         tableView.keyboardDismissMode = keyboardDismissMode
 
         if type == .conversation {
-            // Disable automatic inset adjustment — we handle it manually for the rotated table
             tableView.contentInsetAdjustmentBehavior = .never
-
-            // Swap scroll edge effects (table is rotated 180°, so bottom = visual top)
-            if #available(iOS 26.0, *) {
-                tableView.topEdgeEffect.isHidden = true
-                tableView.bottomEdgeEffect.style = .soft
-            }
         }
 
         NotificationCenter.default.addObserver(forName: .onScrollToBottom, object: nil, queue: nil) { _ in
@@ -96,15 +89,6 @@ struct UIList<MessageContent: View, InputView: View>: UIViewRepresentable {
     }
 
     func updateUIView(_ tableView: UITableView, context: Context) {
-        // For rotated conversation tables: map top safe area → bottom content inset
-        // so content starts below the nav bar but can scroll behind it
-        if type == .conversation {
-            let topInset = tableView.safeAreaInsets.bottom // rotated: visual top = table's bottom safe area
-            if tableView.contentInset.bottom != topInset {
-                tableView.contentInset.bottom = topInset
-            }
-        }
-
         if !isScrollEnabled {
             DispatchQueue.main.async {
                 tableContentHeight = tableView.contentSize.height
