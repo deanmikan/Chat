@@ -69,8 +69,8 @@ struct UIList<MessageContent: View, InputView: View>: UIViewRepresentable {
 
         // Table is rotated 180° for conversation mode, so swap scroll edge effects
         if #available(iOS 26.0, *), type == .conversation {
-            tableView.topScrollEdgeEffectStyle = .none
-            tableView.bottomScrollEdgeEffectStyle = .soft
+            tableView.topEdgeEffect.isHidden = true
+            tableView.bottomEdgeEffect.style = .soft
         }
 
         NotificationCenter.default.addObserver(forName: .onScrollToBottom, object: nil, queue: nil) { _ in
