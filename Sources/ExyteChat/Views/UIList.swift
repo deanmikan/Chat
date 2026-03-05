@@ -66,10 +66,6 @@ struct UIList<MessageContent: View, InputView: View>: UIViewRepresentable {
         tableView.isScrollEnabled = isScrollEnabled
         tableView.keyboardDismissMode = keyboardDismissMode
 
-        if type == .conversation {
-            tableView.contentInsetAdjustmentBehavior = .never
-        }
-
         NotificationCenter.default.addObserver(forName: .onScrollToBottom, object: nil, queue: nil) { _ in
             DispatchQueue.main.async {
                 if !context.coordinator.sections.isEmpty {
