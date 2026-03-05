@@ -65,8 +65,6 @@ struct UIList<MessageContent: View, InputView: View>: UIViewRepresentable {
         tableView.scrollsToTop = false
         tableView.isScrollEnabled = isScrollEnabled
         tableView.keyboardDismissMode = keyboardDismissMode
-        tableView.contentInsetAdjustmentBehavior = .never
-
         // Table is rotated 180° for conversation mode, so swap scroll edge effects
         if #available(iOS 26.0, *), type == .conversation {
             tableView.topEdgeEffect.isHidden = true
