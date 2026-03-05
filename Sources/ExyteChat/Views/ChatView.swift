@@ -311,8 +311,8 @@ public struct ChatView<MessageContent: View, InputViewContent: View, MenuAction:
                     } label: {
                         theme.images.scrollToBottom
                             .frame(width: 40, height: 40)
-                            .circleBackground(theme.colors.messageFriendBG)
-                            .foregroundStyle(theme.colors.sendButtonBackground)
+                            .foregroundStyle(.white)
+                            .background(.ultraThinMaterial, in: Circle())
                             .shadow(color: .primary.opacity(0.1), radius: 2, y: 1)
                     }
                     .padding(.trailing, MessageView.horizontalScreenEdgePadding)
