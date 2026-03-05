@@ -312,8 +312,7 @@ public struct ChatView<MessageContent: View, InputViewContent: View, MenuAction:
                         theme.images.scrollToBottom
                             .frame(width: 40, height: 40)
                             .foregroundStyle(.white)
-                            .background(.ultraThinMaterial, in: Circle())
-                            .shadow(color: .primary.opacity(0.1), radius: 2, y: 1)
+                            .scrollToBottomGlass(in: Circle())
                     }
                     .padding(.trailing, MessageView.horizontalScreenEdgePadding)
                     .padding(.bottom, 8)
@@ -816,4 +815,17 @@ public extension ChatView {
             id: "Mwh6", user: juliet, status: .sent, createdAt: tuesday,
             text: "That I shall say 'Good night' till it be morrow"),
     ]) { draft in }
+}
+
+private extension View {
+    @ViewBuilder
+    func scrollToBottomGlass(in shape: some Shape) -> some View {
+        if #available(iOS 26.0, *) {
+            self.glassEffect(.regular, in: shape)
+        } else {
+            self
+                .background(.ultraThinMaterial, in: shape)
+                .shadow(color: .black.opacity(0.12), radius: 4, x: 0, y: 2)
+        }
+    }
 }
